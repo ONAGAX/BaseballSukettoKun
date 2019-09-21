@@ -1,2 +1,0 @@
-# BaseballSukettoKun
-Created with CodeSandbox
