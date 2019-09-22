@@ -1,4 +1,6 @@
 const drawerWidth = 240;
+const headerNavigationHeight = 56;
+const bottomNavigationHeight = 56;
 
 const styles = theme => ({
   root: {
@@ -46,6 +48,8 @@ const styles = theme => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
     }),
+    paddingTop: `calc(10px + ${headerNavigationHeight}px)`,
+    paddingBottom: `calc(10px + ${bottomNavigationHeight}px)`,
     marginLeft: -drawerWidth
   },
   contentShift: {
