@@ -5,6 +5,7 @@ import axios from "axios";
 import Header from "./Header/Header";
 import RegistryUser from "./RegistryUser/RegistryUser";
 import RegistryUserConf from "./RegistryUserConf/RegistryUserConf";
+import RegistryInfo from "./RegistryInfo/RegistryInfo";
 
 class App extends Component {
   constructor() {
@@ -78,6 +79,7 @@ class App extends Component {
               exact
               render={() => <RegistryUserConf />}
             />
+            <Route path="/registInfo" exact render={() => <RegistryInfo />} />
           </switch>
         </div>
       </Router>

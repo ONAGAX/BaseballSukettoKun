@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
+import { withRouter } from "react-router-dom";
 
 import styles from "./styles";
 import LoginDialog from "../LoginDialog/LoginDialog";
@@ -76,6 +77,12 @@ class Header extends Component {
       });
   };
 
+  // 新規ユーザー登録を押下した際の処理
+  hundleJumpToRegistryUser = () => {
+    this.props.history.push("/regist");
+    this.setState({ open: false });
+  };
+
   render() {
     const { classes, theme } = this.props;
     const loginButtons = (
@@ -117,7 +124,7 @@ class Header extends Component {
     const signin = (
       <>
         <List>
-          <ListItem button>
+          <ListItem button onClick={() => this.hundleJumpToRegistryUser()}>
             <ListItemIcon>
               <FiberNewIcon />
             </ListItemIcon>
@@ -203,4 +210,4 @@ Header.propTypes = {
   theme: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Header);
+export default withStyles(styles)(withRouter(Header));
