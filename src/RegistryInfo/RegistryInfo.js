@@ -31,12 +31,104 @@ class RegistryInfo extends Component {
       age: "",
       gender: "",
       transportation: "",
-      career: ""
+      career: "",
+      error: []
     };
   }
 
+  userTyping = (type, e) => {
+    switch (type) {
+      case "name":
+        this.setState({ name: e.target.value });
+        return;
+      case "kana":
+        this.setState({ kana: e.target.value });
+        return;
+      case "city":
+        this.setState({ city: e.target.value });
+        return;
+      case "address":
+        this.setState({ address: e.target.value });
+        return;
+      case "tel":
+        this.setState({ tel: e.target.value });
+        return;
+      default:
+        return;
+    }
+  };
+
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
+  };
+
+  // バリデート
+  handleJumpToConf = () => {
+    const { name, kana, city, address, gender, tel, todouhuken } = this.state;
+    const errors = [];
+    var count = 0;
+    this.state.error.splice(0);
+
+    if (name === "") {
+      errors.push("お名前は必須項目です");
+      count++;
+    } else if (name.length > 30) {
+      errors.push("お名前は30文字以内で入力してください");
+      count++;
+    }
+    if (kana === "") {
+      errors.push("ふりがなは必須項目です");
+      count++;
+    } else if (kana.length > 30) {
+      errors.push("ふりがなは30文字以内で入力してください");
+      count++;
+    }
+    if (todouhuken === "") {
+      errors.push("都道府県は必須項目です");
+      count++;
+    }
+    if (city.length > 30) {
+      errors.push("市町村は30文字以内で入力してください");
+      count++;
+    }
+    if (address.length > 100) {
+      errors.push("市町村は100文字以内で入力してください");
+      count++;
+    }
+    if (gender === "") {
+      errors.push("性別は必須選択です");
+      count++;
+    }
+    if (tel === "") {
+      errors.push("電話番号は必須項目です");
+      count++;
+    } else if (tel.length > 11) {
+      errors.push("電話番号は11ケタ以内で入力してください");
+      count++;
+    }
+
+    this.setState({
+      error: this.state.error.concat(errors)
+    });
+
+    if (count === 0) {
+      this.props.history.push({
+        pathname: "/registInfoConf",
+        state: {
+          userId: this.props.userId,
+          name: this.state.name,
+          kana: this.state.kana,
+          todouhuken: this.state.todouhuken,
+          city: this.state.city,
+          address: this.state.address,
+          tel: this.state.tel,
+          age: this.state.age,
+          gender: this.state.gender,
+          transportation: this.state.transportation,
+          career: this.state.career
+        }
+      });
+    }
   };
 
   render() {
@@ -93,17 +185,17 @@ class RegistryInfo extends Component {
     const todouhuken = [];
     for (var i = 0; i < todouhukens.length; i++) {
       todouhuken.push(
-        <MenuItem key={i + 1} value={i + 1}>
+        <MenuItem key={i + 1} value={todouhukens[i]}>
           {todouhukens[i]}
         </MenuItem>
       );
     }
 
     const age = [];
-    for (var i = 16; i < 100; i++) {
+    for (var o = 16; o < 100; o++) {
       age.push(
-        <MenuItem key={i} value={i}>
-          {i}
+        <MenuItem key={o} value={o}>
+          {o}
         </MenuItem>
       );
     }
@@ -111,7 +203,7 @@ class RegistryInfo extends Component {
     const careers = [];
     for (var j = 0; j < 100; j++) {
       careers.push(
-        <MenuItem key={i} value={j}>
+        <MenuItem key={j} value={j}>
           {j}
         </MenuItem>
       );
@@ -126,11 +218,20 @@ class RegistryInfo extends Component {
       "自動車"
     ];
     const transportation = [];
-    for (var i = 0; i < transportations.length; i++) {
+    for (var p = 0; p < transportations.length; p++) {
       transportation.push(
-        <MenuItem key={i + 1} value={i + 1}>
-          {transportations[i]}
+        <MenuItem key={p + 1} value={transportations[p]}>
+          {transportations[p]}
         </MenuItem>
+      );
+    }
+
+    const errorList = [];
+    for (var q = 0; q < this.state.error.length; q++) {
+      errorList.push(
+        <li key={q} className={classes.error}>
+          {this.state.error[q]}
+        </li>
       );
     }
 
@@ -141,16 +242,26 @@ class RegistryInfo extends Component {
             <Typography variant="h5" className={classes.typos}>
               情報登録
             </Typography>
-            <Typography variant="subtitle1" className={classes.typos2}>
-              ※は必須項目です
-            </Typography>
+            {this.state.error.length === 0 ? (
+              <Typography variant="subtitle1" className={classes.typos2}>
+                ※は必須項目です
+              </Typography>
+            ) : (
+              <ul className={classes.ul}>{errorList}</ul>
+            )}
             <FormControl className={classes.nameInput}>
               <InputLabel htmlFor="name-helper">お名前 ※</InputLabel>
-              <Input id="name-helper" />
+              <Input
+                id="name-helper"
+                onChange={e => this.userTyping("name", e)}
+              />
             </FormControl>
             <FormControl className={classes.kanaInput}>
               <InputLabel htmlFor="kana-helper">ふりがな ※</InputLabel>
-              <Input id="kana-helper" />
+              <Input
+                id="kana-helper"
+                onChange={e => this.userTyping("kana", e)}
+              />
             </FormControl>
             <br />
             <FormControl className={classes.age}>
@@ -176,13 +287,16 @@ class RegistryInfo extends Component {
                   id: "gender-helper"
                 }}
               >
-                <MenuItem value="0">男</MenuItem>
-                <MenuItem value="1">女</MenuItem>
+                <MenuItem value={0}>男</MenuItem>
+                <MenuItem value={1}>女</MenuItem>
               </Select>
             </FormControl>
             <FormControl className={classes.telInput}>
               <InputLabel htmlFor="tel-helper">電話番号 ※</InputLabel>
-              <Input id="tel-helper" />
+              <Input
+                id="tel-helper"
+                onChange={e => this.userTyping("tel", e)}
+              />
             </FormControl>
             <br />
             <FormControl className={classes.todouhuken}>
@@ -200,14 +314,16 @@ class RegistryInfo extends Component {
             </FormControl>
             <FormControl className={classes.cityInput}>
               <InputLabel htmlFor="city-helper">市町村</InputLabel>
-              <Input id="city-helper" />
+              <Input
+                id="city-helper"
+                onChange={e => this.userTyping("city", e)}
+              />
             </FormControl>
             <TextField
               id="standard-with-placeholder"
               label="番地 / マンション等"
-              placeholder="御徒町１−２−３"
               margin="dense"
-              onChange={e => this.userTyping("email", e)}
+              onChange={e => this.userTyping("address", e)}
               className={classes.address}
               fullWidth
             />
@@ -241,7 +357,7 @@ class RegistryInfo extends Component {
               variant="contained"
               color="primary"
               className={classes.button}
-              onClick={() => this.handleJumpConf()}
+              onClick={() => this.handleJumpToConf()}
               fullWidth
             >
               登録する

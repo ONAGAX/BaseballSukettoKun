@@ -27,6 +27,7 @@ import ForumIcon from "@material-ui/icons/Forum";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
 import FiberNewIcon from "@material-ui/icons/FiberNew";
+import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 
 class Header extends Component {
   constructor(props) {
@@ -77,9 +78,20 @@ class Header extends Component {
       });
   };
 
+  hundleToHome = () => {
+    this.props.history.push("/");
+    this.setState({ open: false });
+  };
+
   // 新規ユーザー登録を押下した際の処理
   hundleJumpToRegistryUser = () => {
     this.props.history.push("/regist");
+    this.setState({ open: false });
+  };
+
+  // ユーザー情報登録用、実際はログイン時のuser_idをpropsで渡す
+  hundleJumpToRegistryUserInfo = () => {
+    this.props.history.push("/registInfo");
     this.setState({ open: false });
   };
 
@@ -183,7 +195,7 @@ class Header extends Component {
           </div>
           <Divider />
           <List>
-            <ListItem button onClick={() => console.log("home")}>
+            <ListItem button onClick={() => this.hundleToHome()}>
               <ListItemIcon>
                 <HomeIcon />
               </ListItemIcon>
@@ -194,6 +206,15 @@ class Header extends Component {
                 <ForumIcon />
               </ListItemIcon>
               <ListItemText primary="チャット" />
+            </ListItem>
+            <ListItem
+              button
+              onClick={() => this.hundleJumpToRegistryUserInfo()}
+            >
+              <ListItemIcon>
+                <PermIdentityIcon />
+              </ListItemIcon>
+              <ListItemText primary="情報登録" />
             </ListItem>
           </List>
           <Divider />

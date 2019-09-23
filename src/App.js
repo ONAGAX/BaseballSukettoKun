@@ -6,6 +6,8 @@ import Header from "./Header/Header";
 import RegistryUser from "./RegistryUser/RegistryUser";
 import RegistryUserConf from "./RegistryUserConf/RegistryUserConf";
 import RegistryInfo from "./RegistryInfo/RegistryInfo";
+import RegistryInfoConf from "./RegistryInfoConf/RegistryInfoConf";
+import Home from "./Home/Home";
 
 class App extends Component {
   constructor() {
@@ -62,6 +64,7 @@ class App extends Component {
             handleChangeLogin={this.handleChangeLogin}
           />
           <switch>
+            <Route path="/" exact={() => <Home />} />
             <Route
               path="/regist"
               exact
@@ -80,6 +83,11 @@ class App extends Component {
               render={() => <RegistryUserConf />}
             />
             <Route path="/registInfo" exact render={() => <RegistryInfo />} />
+            <Route
+              path="/registInfoConf"
+              exact
+              render={() => <RegistryInfoConf />}
+            />
           </switch>
         </div>
       </Router>

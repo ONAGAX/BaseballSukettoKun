@@ -76,6 +76,16 @@ const styles = theme => ({
   career: {
     marginLeft: "10px",
     minWidth: 140
+  },
+  error: {
+    color: "red",
+    listStyle: "none",
+    margin: "0 30 0 30",
+    textAlign: "center"
+  },
+  ul: {
+    marginTop: "1rem",
+    padding: "0"
   }
 });
 
