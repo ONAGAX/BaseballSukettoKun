@@ -64,7 +64,6 @@ class App extends Component {
             handleChangeLogin={this.handleChangeLogin}
           />
           <switch>
-            <Route path="/" exact={() => <Home />} />
             <Route
               path="/regist"
               exact
@@ -88,6 +87,7 @@ class App extends Component {
               exact
               render={() => <RegistryInfoConf />}
             />
+            <Route path="/" exact render={() => <Home />} />
           </switch>
         </div>
       </Router>

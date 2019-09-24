@@ -95,8 +95,23 @@ class Header extends Component {
     this.setState({ open: false });
   };
 
+  // サイドバーのログインpop
+  hundleLoginSidebar = () => {
+    this.setState({ open: false });
+    this.setState({ setLoginOpen: true });
+  };
+
   render() {
     const { classes, theme } = this.props;
+    const loginPop = (
+      <>
+        <LoginDialog
+          open={this.state.setLoginOpen}
+          close={this.handleClickLoginClose}
+          handlePostLogin={this.handlePostLogin}
+        />
+      </>
+    );
     const loginButtons = (
       <>
         <Button
@@ -107,11 +122,7 @@ class Header extends Component {
         >
           ログイン
         </Button>
-        <LoginDialog
-          open={this.state.setLoginOpen}
-          close={this.handleClickLoginClose}
-          handlePostLogin={this.handlePostLogin}
-        />
+        {loginPop}
       </>
     );
     const welcomeUser = (
@@ -142,7 +153,7 @@ class Header extends Component {
             </ListItemIcon>
             <ListItemText primary="新規登録" className="logout" />
           </ListItem>
-          <ListItem button>
+          <ListItem button onClick={() => this.hundleLoginSidebar()}>
             <ListItemIcon>
               <MeetingRoomIcon />
             </ListItemIcon>
