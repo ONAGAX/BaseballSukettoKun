@@ -15,6 +15,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import Grid from "@material-ui/core/Grid";
+import Container from "@material-ui/core/Container";
 
 import styles from "./styles";
 import axios from "axios";
@@ -77,130 +78,134 @@ class Home extends Component {
 
     return (
       <div className={classes.root}>
-        <Grid container spacing={3}>
-          {this.state.users.map(user => {
-            const dataRadar = [
-              { rank: "打撃力", value: user.battingLevel },
-              { rank: "投手力", value: user.pitchingLevel },
-              { rank: "守備力", value: user.positionLevel },
-              { rank: "肩力", value: user.armLevel },
-              { rank: "走力", value: user.runLevel }
-            ];
-            return (
-              <Card className={classes.card}>
-                <CardHeader
-                  avatar={
-                    <Avatar aria-label="recipe" className={classes.avatar}>
-                      {user.nickname.substr(0, 1)}
-                    </Avatar>
-                  }
-                  action={
-                    <IconButton aria-label="add to favorites">
-                      <FavoriteIcon />
-                    </IconButton>
-                  }
-                  title={<span className={classes.title}>{user.nickname}</span>}
-                  subheader={
-                    <div className={classes.price}>
-                      <span className={classes.priceSub}>
-                        ￥{user.price}
-                        <span className={classes.priceSubTitle}>/1day</span>
-                      </span>
-                      <span className={classes.weekend}>
-                        {user.weekend === 0 && "(土日祝 対応可)"}
-                        {user.weekend === 1 && "(土曜のみ)"}
-                        {user.weekend === 2 && "(日曜のみ)"}
-                      </span>
-                    </div>
-                  }
-                />
-                <CardContent>
-                  <RadarChart
-                    height={200}
-                    width={300}
-                    cx="50%"
-                    cy="50%"
-                    data={dataRadar}
-                  >
-                    <PolarGrid />
-                    <PolarAngleAxis dataKey="rank" />
-                    <Radar
-                      dataKey="value"
-                      stroke="red"
-                      fill="red"
-                      fillOpacity={0.6}
-                    />
-                    <Tooltip />
-                  </RadarChart>
-                  <Table className={classes.table}>
-                    <TableHead>
-                      <TableRow>
-                        <TableCell />
-                        <TableCell />
+        <Container maxWidth="lg">
+          <Grid container spacing={3}>
+            {this.state.users.map(user => {
+              const dataRadar = [
+                { rank: "打撃力", value: user.battingLevel },
+                { rank: "投手力", value: user.pitchingLevel },
+                { rank: "守備力", value: user.positionLevel },
+                { rank: "肩力", value: user.armLevel },
+                { rank: "走力", value: user.runLevel }
+              ];
+              return (
+                <Card className={classes.card}>
+                  <CardHeader
+                    avatar={
+                      <Avatar aria-label="recipe" className={classes.avatar}>
+                        {user.nickname.substr(0, 1)}
+                      </Avatar>
+                    }
+                    action={
+                      <IconButton aria-label="add to favorites">
+                        <FavoriteIcon />
+                      </IconButton>
+                    }
+                    title={
+                      <span className={classes.title}>{user.nickname}</span>
+                    }
+                    subheader={
+                      <div className={classes.price}>
+                        <span className={classes.priceSub}>
+                          ￥{user.price}
+                          <span className={classes.priceSubTitle}>/1day</span>
+                        </span>
+                        <span className={classes.weekend}>
+                          {user.weekend === 0 && "(土日祝 対応可)"}
+                          {user.weekend === 1 && "(土曜のみ)"}
+                          {user.weekend === 2 && "(日曜のみ)"}
+                        </span>
+                      </div>
+                    }
+                  />
+                  <CardContent>
+                    <RadarChart
+                      height={200}
+                      width={300}
+                      cx="50%"
+                      cy="50%"
+                      data={dataRadar}
+                    >
+                      <PolarGrid />
+                      <PolarAngleAxis dataKey="rank" />
+                      <Radar
+                        dataKey="value"
+                        stroke="red"
+                        fill="red"
+                        fillOpacity={0.6}
+                      />
+                      <Tooltip />
+                    </RadarChart>
+                    <Table className={classes.table} size="small">
+                      <TableHead>
+                        <TableRow>
+                          <TableCell />
+                          <TableCell />
+                          <TableCell />
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        <TableRow key={1}>
+                          <TableCell component="th" scope="row">
+                            性別
+                          </TableCell>
+                          <TableCell align="left">
+                            {user.gender === 0 ? "男" : "女"}
+                          </TableCell>
+                          <TableCell />
+                        </TableRow>
+                        <TableRow key={2}>
+                          <TableCell component="th" scope="row">
+                            地域
+                          </TableCell>
+                          <TableCell align="left">{user.state}</TableCell>
+                          <TableCell />
+                        </TableRow>
+                      </TableBody>
+                      <TableRow key={3}>
+                        <TableCell component="th" scope="row">
+                          年齢
+                        </TableCell>
+                        <TableCell align="left">{user.age}歳</TableCell>
                         <TableCell />
                       </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      <TableRow key={1}>
+                      <TableRow key={4}>
                         <TableCell component="th" scope="row">
-                          性別
+                          ポジション
                         </TableCell>
                         <TableCell align="left">
-                          {user.gender === 0 ? "男" : "女"}
+                          {this.potisionChanger(user.positionMain)}
                         </TableCell>
                         <TableCell />
                       </TableRow>
-                      <TableRow key={2}>
+                      <TableRow key={5}>
                         <TableCell component="th" scope="row">
-                          地域
+                          利き腕
                         </TableCell>
-                        <TableCell align="left">{user.state}</TableCell>
+                        <TableCell align="left">
+                          {user.pitchingDominant === 0 ? "右" : "左"}投
+                          {user.battingDominant === 0 ? "右" : "左"}打
+                        </TableCell>
                         <TableCell />
                       </TableRow>
-                    </TableBody>
-                    <TableRow key={3}>
-                      <TableCell component="th" scope="row">
-                        年齢
-                      </TableCell>
-                      <TableCell align="left">{user.age}歳</TableCell>
-                      <TableCell />
-                    </TableRow>
-                    <TableRow key={4}>
-                      <TableCell component="th" scope="row">
-                        ポジション
-                      </TableCell>
-                      <TableCell align="left">
-                        {this.potisionChanger(user.positionMain)}
-                      </TableCell>
-                      <TableCell />
-                    </TableRow>
-                    <TableRow key={5}>
-                      <TableCell component="th" scope="row">
-                        利き腕
-                      </TableCell>
-                      <TableCell align="left">
-                        {user.pitchingDominant === 0 ? "右" : "左"}投
-                        {user.battingDominant === 0 ? "右" : "左"}打
-                      </TableCell>
-                      <TableCell />
-                    </TableRow>
-                  </Table>
-                </CardContent>
-                <CardActions disableSpacing>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    className={classes.button}
-                    className={classes.btn}
-                    fullWidth
-                  >
-                    詳細を見る
-                  </Button>
-                </CardActions>
-              </Card>
-            );
-          })}
-        </Grid>
+                    </Table>
+                  </CardContent>
+                  <CardActions disableSpacing>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      className={classes.button}
+                      className={classes.btn}
+                      fullWidth
+                    >
+                      詳細を見る
+                    </Button>
+                  </CardActions>
+                </Card>
+              );
+            })}
+          </Grid>
+        </Container>
       </div>
     );
   }

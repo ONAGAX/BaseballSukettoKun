@@ -143,6 +143,33 @@ class SkillRegist extends Component {
 
     if (errors.length === 0) {
       console.log("スキル詳細画面へstateを持って飛ぶ（確認用として）");
+      this.props.history.push({
+        pathname: "/skillConf",
+        state: {
+          pitchingDominant: parseInt(this.state.pitchingDominant, 10),
+          battingDominant: parseInt(this.state.battingDominant, 10),
+          positionMain: this.state.positionMain,
+          positionSub: this.state.positionSub,
+          weekend: this.state.weekend,
+          height: parseInt(this.state.height, 10),
+          weight: parseInt(this.state.weight, 10),
+          price: parseInt(this.state.price, 10),
+          battingType: this.state.battingType,
+          pitchingType: this.state.pitchingType,
+          battingLevel: this.state.battingLevel,
+          pitchingLevel: this.state.pitchingLevel,
+          armLevel: this.state.armLevel,
+          positionLevel: this.state.positionLevel,
+          runLevel: this.state.runLevel,
+          pitchingFast: this.state.pitchingFast,
+          pitchingCon: this.state.pitchingCon,
+          pitchingChange: this.state.pitchingChange,
+          career: this.props.career,
+          nickname: this.props.nickname,
+          email: this.props.email,
+          sukettoId: this.props.sukettoId
+        }
+      });
     } else {
       this.setState({ error: errors });
     }
