@@ -8,6 +8,7 @@ import RegistryUserConf from "./RegistryUserConf/RegistryUserConf";
 import RegistryInfo from "./RegistryInfo/RegistryInfo";
 import RegistryInfoConf from "./RegistryInfoConf/RegistryInfoConf";
 import Home from "./Home/Home";
+import SkillRegist from "./SkillRegist/SkillRegist";
 
 class App extends Component {
   constructor() {
@@ -88,6 +89,7 @@ class App extends Component {
               render={() => <RegistryInfoConf />}
             />
             <Route path="/" exact render={() => <Home />} />
+            <Route path="/skillRegist" exact render={() => <SkillRegist />} />
           </switch>
         </div>
       </Router>

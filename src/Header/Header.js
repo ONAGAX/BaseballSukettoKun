@@ -28,6 +28,7 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
 import FiberNewIcon from "@material-ui/icons/FiberNew";
 import PermIdentityIcon from "@material-ui/icons/PermIdentity";
+import SportsHandballIcon from "@material-ui/icons/SportsHandball";
 
 class Header extends Component {
   constructor(props) {
@@ -92,6 +93,11 @@ class Header extends Component {
   // ユーザー情報登録用、実際はログイン時のuser_idをpropsで渡す
   hundleJumpToRegistryUserInfo = () => {
     this.props.history.push("/registInfo");
+    this.setState({ open: false });
+  };
+
+  hundleJumpToSkillRegist = () => {
+    this.props.history.push("/skillRegist");
     this.setState({ open: false });
   };
 
@@ -226,6 +232,12 @@ class Header extends Component {
                 <PermIdentityIcon />
               </ListItemIcon>
               <ListItemText primary="情報登録" />
+            </ListItem>
+            <ListItem button onClick={() => this.hundleJumpToSkillRegist()}>
+              <ListItemIcon>
+                <SportsHandballIcon />
+              </ListItemIcon>
+              <ListItemText primary="スキル情報登録" />
             </ListItem>
           </List>
           <Divider />

@@ -1,19 +1,13 @@
-import React, { Component, useEffect } from "react";
+import React, { Component } from "react";
 
-import { makeStyles } from "@material-ui/core/styles";
 import withStyles from "@material-ui/core/styles/withStyles";
-import clsx from "clsx";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
-import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import { red } from "@material-ui/core/colors";
 import Button from "@material-ui/core/Button";
-import { textAlign } from "@material-ui/system";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -22,9 +16,8 @@ import TableRow from "@material-ui/core/TableRow";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import Grid from "@material-ui/core/Grid";
 
-import Paper from "@material-ui/core/Paper";
+import styles from "./styles";
 import axios from "axios";
-import { render } from "react-dom";
 
 import {
   RadarChart,
@@ -34,78 +27,11 @@ import {
   Tooltip
 } from "recharts";
 
-const styles = theme => ({
-  // rootが利かないので一時的に本体にmargin
-  root: {
-    marginTop: "100px",
-    flexGrow: 1
-  },
-  card: {
-    marginLeft: 30,
-    maxWidth: 345,
-    marginBottom: 10
-  },
-  media: {
-    height: 0,
-    paddingTop: "56.25%" // 16:9
-  },
-  expand: {
-    transform: "rotate(0deg)",
-    marginLeft: "auto",
-    transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest
-    })
-  },
-  expandOpen: {
-    transform: "rotate(180deg)"
-  },
-  avatar: {
-    backgroundColor: red[500],
-    marginLeft: 10
-  },
-  btn: {},
-  title: {
-    fontSize: "1.2rem",
-    textAlign: "center"
-  },
-  price: {
-    marginLeft: -3
-  },
-  priceSub: {
-    color: "red",
-    fontWeight: "bold",
-    fontSize: "0.9rem"
-  },
-  weekend: {
-    fontSize: "0.9rem",
-    marginLeft: 5
-  }
-});
-
 class Home extends Component {
   constructor() {
     super();
     this.state = {
-      users: [],
-      sukillId: "",
-      sukettoId: "",
-      battingLevel: "",
-      battingDominant: "",
-      battingType: "",
-      pitchigDominant: "",
-      pitchingType: "",
-      pitchingLevel: "",
-      pitchingChange: "",
-      pitchingFast: "",
-      pitchingCont: "",
-      positionMain: "",
-      positionLevel: "",
-      armLevel: "",
-      positionSub: "",
-      runLevel: "",
-      height: "",
-      weight: "",
-      update_date: ""
+      users: []
     };
   }
 
