@@ -34,6 +34,10 @@ class SkillConf extends Component {
     super();
   }
 
+  handleBack = () => {
+    this.props.history.push("/skillRegist");
+  };
+
   render() {
     const { classes } = this.props;
 

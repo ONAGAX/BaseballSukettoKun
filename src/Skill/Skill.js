@@ -15,6 +15,10 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import TextField from "@material-ui/core/TextField";
+import SendIcon from "@material-ui/icons/Send";
+import IconButton from "@material-ui/core/IconButton";
+import Divider from "@material-ui/core/Divider";
 
 import {
   RadarChart,
@@ -99,9 +103,6 @@ class Skill extends Component {
         {console.log(this.props.location.state)}
         <form className={classes.container} autoComplete="off">
           <Paper className={classes.paper}>
-            <Typography variant="subtitle1" className={classes.title}>
-              <strong>実際に助っ人情報で表示される確認です</strong>
-            </Typography>
             <Grid container spacing={2}>
               <Grid item xs className={classes.blue}>
                 <ButtonBase className={classes.image}>
@@ -189,9 +190,7 @@ class Skill extends Component {
                 </Table>
               </Grid>
             </Grid>
-            <Typography variant="subtitle1" className={classes.typos}>
-              <strong>下記はログイン状態でのみ表示される情報です</strong>
-            </Typography>
+            <Divider variant="middle" className={classes.divider2} />
             <Grid container spacing={2}>
               <Grid item xs className={classes.chart}>
                 <RadarChart
@@ -256,13 +255,13 @@ class Skill extends Component {
                     <TableCell component="th" scope="row">
                       身長
                     </TableCell>
-                    <TableCell align="left">{height}}</TableCell>
+                    <TableCell align="left">{height} cm</TableCell>
                   </TableRow>
                   <TableRow key={6}>
                     <TableCell component="th" scope="row">
                       体重
                     </TableCell>
-                    <TableCell align="left">{weight}</TableCell>
+                    <TableCell align="left">{weight} kg</TableCell>
                   </TableRow>
                 </Table>
               </Grid>
@@ -290,23 +289,37 @@ class Skill extends Component {
                 />
               </ComposedChart>
             </div>
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.button}
-              onClick={() => this.handleCheckValue()}
-              fullWidth
-            >
-              登録する
-            </Button>
-            <Button
-              variant="contained"
-              className={classes.button}
-              onClick={() => this.handleBack()}
-              fullWidth
-            >
-              戻る
-            </Button>
+            <div className={classes.btn}>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.chatBtn}
+                onClick={() => this.handleCheckValue()}
+              >
+                チャットを開始する
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.payBtn}
+                onClick={() => this.handleBack()}
+              >
+                助っ人をお願いする
+              </Button>
+            </div>
+            <Divider variant="middle" className={classes.divider} />
+            <div className={classes.comment}>
+              <TextField
+                id="comment"
+                className={classes.commentField}
+                placeholder="commentを記入してください"
+                margin="normal"
+                inputProps={{ "aria-label": "comment" }}
+              />
+              <IconButton aria-label="send" className={classes.send}>
+                <SendIcon />
+              </IconButton>
+            </div>
           </Paper>
         </form>
       </div>

@@ -6,13 +6,10 @@ const styles = theme => ({
     marginBottom: "60px",
     flexGrow: 1
   },
-  button: {
-    marginTop: "20px"
-  },
   paper: {
     padding: theme.spacing(2),
     margin: "auto",
-    maxWidth: 600
+    maxWidth: 620
   },
   image: {
     width: 128,
@@ -77,7 +74,40 @@ const styles = theme => ({
     textAlign: "center"
   },
   chart2: {
-    marginTop: 40
+    marginTop: 0
+  },
+  btn: {
+    marginLeft: "auto",
+    marginRight: "auto",
+    width: 550
+  },
+  chatBtn: {
+    marginTop: "20px",
+    width: 250
+  },
+  payBtn: {
+    marginTop: "20px",
+    width: 250,
+    marginLeft: 50
+  },
+  comment: {
+    marginTop: 20
+  },
+  commentField: {
+    width: 400,
+    marginLeft: 60
+  },
+  send: {
+    marginTop: 10,
+    marginLeft: 10,
+    color: "#4169e1"
+  },
+  divider: {
+    marginTop: 30
+  },
+  divider2: {
+    marginTop: 40,
+    marginBottom: 30
   }
 });
 

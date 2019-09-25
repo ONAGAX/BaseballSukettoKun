@@ -144,7 +144,8 @@ class SkillRegist extends Component {
     if (errors.length === 0) {
       console.log("スキル詳細画面へstateを持って飛ぶ（確認用として）");
       this.props.history.push({
-        pathname: "/skillConf",
+        // 一時的にskillにする
+        pathname: "/skill",
         state: {
           pitchingDominant: parseInt(this.state.pitchingDominant, 10),
           battingDominant: parseInt(this.state.battingDominant, 10),
